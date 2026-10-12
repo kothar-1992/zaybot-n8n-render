@@ -1,0 +1,41 @@
+{
+  "recipient": { "id": "27674709148807606" },
+  "messaging_type": "RESPONSE",
+  "message": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "STARTER - 50,000 Ks/month",
+            "subtitle": "FAQ + reply, 1 channel, Telegram alert",
+            "image_url": "https://www.zaybot.fun/og-image.png",
+            "buttons": [
+              { "type": "postback", "title": "ရွေးမယ်", "payload": "ZAYBOT_STARTER" },
+              { "type": "web_url", "title": "အသေးစိတ်ကြည့်", "url": "https://www.zaybot.fun/" }
+            ]
+          },
+          {
+            "title": "BUSINESS - 100,000 Ks/month",
+            "subtitle": "Order+payment approval, memory (Recommended)",
+            "image_url": "https://www.zaybot.fun/og-image.png",
+            "buttons": [
+              { "type": "postback", "title": "ရွေးမယ်", "payload": "ZAYBOT_BUSINESS" },
+              { "type": "web_url", "title": "အသေးစိတ်ကြည့်", "url": "https://www.zaybot.fun/" }
+            ]
+          },
+          {
+            "title": "PRO - Custom pricing",
+            "subtitle": "Supabase/API, auto post, priority support",
+            "image_url": "https://www.zaybot.fun/og-image.png",
+            "buttons": [
+              { "type": "postback", "title": "ဆွေးနွေးမယ်", "payload": "ZAYBOT_PRO" },
+              { "type": "web_url", "title": "Demo တောင်းရန်", "url": "https://www.zaybot.fun/" }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

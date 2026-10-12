@@ -1,0 +1,13 @@
+# n8n on Render Free — minimal Dockerfile
+FROM n8nio/n8n:latest
+
+# Render provides PORT env var (default 10000), but n8n uses 5678
+# n8n respects N8N_PORT, so we just expose 5678
+EXPOSE 5678
+
+# Health check endpoint (n8n has /healthz)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:5678/healthz || exit 1
+
+# n8n entrypoint handles everything
+# Data persists in /data (ephemeral on Render Free — OK for testing)

@@ -1,0 +1,10 @@
+# n8n Render deployment — ignore files
+.env
+*.log
+.DS_Store
+*.db
+*.sqlite
+data/
+node_modules/
+__pycache__/
+*.pyc

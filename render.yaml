@@ -1,0 +1,63 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  💰 COST SAFETY — Render Blueprint for n8n (FREE tier only)
+#
+#  This blueprint deploys n8n on Render Free plan. No credit card required.
+#  Free tier limits: 750 hrs/month, 5 GB bandwidth, 500 build mins/month.
+#  With no payment method, overages suspend services instead of billing.
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+  - type: web
+    name: zaybot-n8n
+    runtime: docker
+    plan: free                    # ← DO NOT CHANGE. Free instance = $0.
+    dockerfilePath: ./Dockerfile.n8n
+    dockerContext: .
+    healthCheckPath: /healthz
+    autoDeploy: false             # manual deploys only to save build minutes
+    envVars:
+      # n8n core config
+      - key: N8N_HOST
+        sync: false               # will be set after first deploy (e.g., zaybot-n8n.onrender.com)
+      - key: N8N_PORT
+        value: "5678"
+      - key: N8N_PROTOCOL
+        value: https
+      - key: NODE_ENV
+        value: production
+      # Encryption key for credentials (generate once, keep secret)
+      - key: N8N_ENCRYPTION_KEY
+        sync: false               # generate: openssl rand -hex 16
+      # Database (SQLite on ephemeral FS — OK for testing)
+      - key: DB_TYPE
+        value: sqlite
+      - key: DB_SQLITE_DATABASE
+        value: /data/n8n.db
+      # Webhook URL for callbacks (set after deploy)
+      - key: WEBHOOK_URL
+        sync: false               # e.g., https://zaybot-n8n.onrender.com/webhook/
+      # Basic auth for n8n UI (optional but recommended)
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        value: admin
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false               # set a strong password
+      # Timezone
+      - key: GENERIC_TIMEZONE
+        value: Asia/Yangon
+      # Disable telemetry
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: "false"
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  DEPLOY STEPS (run once):
+#  1. Push this folder to a NEW GitHub repo (e.g., zaybot-n8n-render)
+#  2. On Render Dashboard → New → Blueprint → connect that repo
+#  3. Fill in sync: false values (N8N_ENCRYPTION_KEY, N8N_HOST, WEBHOOK_URL, BASIC_AUTH_PASSWORD)
+#  4. Deploy → wait for "Live" status
+#  5. Copy the service URL (e.g., https://zaybot-n8n.onrender.com)
+#  6. Set N8N_HOST and WEBHOOK_URL env vars to that URL, redeploy
+#  7. Open n8n UI, create webhook workflow for Messenger postbacks
+#  8. Add UptimeRobot monitor (5-min ping) to prevent sleep
+# ─────────────────────────────────────────────────────────────────────────────
