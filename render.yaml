@@ -15,6 +15,7 @@ services:
     dockerContext: .
     healthCheckPath: /healthz
     autoDeploy: false             # manual deploys only to save build minutes
+    startCommand: "N8N_PORT=$PORT n8n start"
     envVars:
       # n8n core config
       - key: N8N_HOST
